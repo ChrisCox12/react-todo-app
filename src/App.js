@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+
+import { useEffect, useState } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import TODO_LIST from './components/Todo_List/Todo_List';
+
 
 function App() {
+  const [toggleTheme, setToggleTheme] = useState(false);
+
+  useEffect(() => {
+    const app = document.querySelector('.App');
+    const app_background = document.querySelector('.App__background');
+
+    if(toggleTheme) {
+      app.classList.add('dark-app');
+      app_background.classList.add('dark-background');
+    }
+    else{
+      app.classList.remove('dark-app');
+      app_background.classList.remove('dark-background');
+    }
+  }, [toggleTheme]);
+
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='App__background'></div>
+      <div className='App__header'>
+        <div className='App__header__left'>Todo</div>
+        <div className='App__header__right'><button onClick={() => setToggleTheme(!toggleTheme)}>Click</button></div>
+      </div>
+      <TODO_LIST />
     </div>
   );
 }

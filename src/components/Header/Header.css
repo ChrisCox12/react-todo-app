@@ -1,0 +1,8 @@
+.header {
+    position: relative;
+    display: flex;
+}
+
+.header__left {
+    text-transform: uppercase;
+}

@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,31 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+:root {
+  --blue: hsl(220, 98%, 61%);
+  --check-bkgrnd: linear-gradient(145deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  
+  --lt-clr-1: hsl(0, 0%, 98%);
+  --lt-clr-2: hsl(236, 33%, 92%);
+  --lt-clr-3: hsl(233, 11%, 84%);
+  --lt-clr-4: hsl(236, 9%, 61%);
+  --lt-clr-5: hsl(235, 19%, 35%);
+
+  --dk-clr-1: hsl(235, 21%, 11%);
+  --dk-clr-2: hsl(235, 24%, 19%);
+  --dk-clr-3: hsl(234, 39%, 85%);
+  --dk-clr-4: hsl(236, 33%, 92%);
+  --dk-clr-5: hsl(234, 11%, 52%);
+  --dk-clr-6: hsl(233, 14%, 35%);
+  --dk-clr-7: hsl(237, 14%, 26%);
 }
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+}
+

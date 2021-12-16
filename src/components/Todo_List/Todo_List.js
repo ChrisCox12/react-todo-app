@@ -21,16 +21,23 @@ function TODO_LIST({ toggleTheme }) {
         const todo_input = document.querySelector('.todo-list__new-todo');
         const check_circle = document.querySelector('.todo-list__new-todo__check-circle');
         const list = document.querySelector('.todo-list__list');
+        const items_left = document.querySelector('.todo-list__list__items-left');
+        const todos_ = document.querySelectorAll('.todo-list__list__todo');
+        /* console.log(todos_) */
         /* console.log(todos); */
         if(toggleTheme) {
             todo_input.classList.add('dark-list');
             check_circle.classList.add('dark-circle');
             list.classList.add('dark-list');
+            items_left.classList.add('dark-items-left');
+            todos_.forEach(todo_ => todo_.classList.add('dark-todo'));
         } 
         else {
             todo_input.classList.remove('dark-list');
             check_circle.classList.remove('dark-circle');
             list.classList.remove('dark-list');
+            items_left.classList.remove('.dark-items-left');
+            todos_.forEach(todo_ => todo_.classList.remove('dark-todo'));
         }
     }, [toggleTheme]);
 
@@ -70,7 +77,7 @@ function TODO_LIST({ toggleTheme }) {
                         ); */
                         return (
                             <li key={index} className='todo-list__list__todo'>
-                                <TODO todo={todo} handleDeleteTodo={handleDeleteTodo} />
+                                <TODO todo={todo} handleDeleteTodo={handleDeleteTodo} toggleTheme={toggleTheme} />
                             </li>
                         );
                     })

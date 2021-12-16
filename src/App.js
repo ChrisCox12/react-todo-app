@@ -39,7 +39,7 @@ function App() {
         <div className='App__header__left'>Todo</div>
         <div className='App__header__right'>
           <button className='App__header__right__theme-btn' onClick={TOGGLE_THEME}>
-            <img id='theme-btn' src={sun} />
+            <img id='theme-btn' src={sun} alt='Theme Toggle' />
           </button>
         </div>
       </div>

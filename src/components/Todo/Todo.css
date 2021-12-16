@@ -1,0 +1,53 @@
+.todo-list__list__todo__left {
+    display: flex;
+    align-items: center;
+
+}
+
+.todo-list__list__todo__left__check-circle {
+    border: 1px solid var(--lt-clr-3);
+    border-radius: 50%;
+    
+}
+
+.todo-list__list__todo__right button {
+    border: none;
+    background: transparent;
+}
+
+.todo-list__list__todo__right button:hover {
+    cursor: pointer;
+}
+
+.dark-circle {
+    border: 1px solid var(--dk-clr-3);
+}
+
+.dark-text {
+    color: var(--dk-clr-3);
+}
+
+
+@media screen and (min-width: 375px) {
+    .todo-list__list__todo__left {
+        column-gap: 12px;
+    }
+    
+    .todo-list__list__todo__left__check-circle {
+        height: 22px;
+        min-width: 22px;
+        /* margin-right: 12px; */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .todo-list__list__todo__left {
+        column-gap: 24px;
+    }
+    
+    .todo-list__list__todo__left__check-circle {
+        height: 24px;
+        min-width: 24px;
+        /* margin-right: 24px; */
+    }
+}

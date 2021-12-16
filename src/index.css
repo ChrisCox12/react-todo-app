@@ -29,6 +29,9 @@ code {
   --dk-clr-5: hsl(234, 11%, 52%);
   --dk-clr-6: hsl(233, 14%, 35%);
   --dk-clr-7: hsl(237, 14%, 26%);
+
+  --ft-reg: 400;
+  --ft-bold: 700;
 }
 
 *, *::before, *::after {

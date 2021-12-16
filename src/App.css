@@ -2,7 +2,7 @@
   text-align: center;
   position: relative;
   min-height: 100vh;
-  background-color: var(--lt-clr-1);
+  background-color: var(--lt-clr-2);
 }
 
 .App__background {
@@ -23,6 +23,17 @@
   justify-content: space-between;
 }
 
+.App__header__left {
+  text-transform: uppercase;
+  font-weight: var(--ft-bold);
+  color: var(--lt-clr-1);
+}
+
+.App__header__right__theme-btn {
+  border: none;
+  background: transparent;
+}
+
 .dark-app {
   background-color: var(--dk-clr-1);
 }
@@ -35,6 +46,15 @@
 
   .App__background {
     height: 200px;
+  }
+
+  .App__header {
+    margin-bottom: 40px;
+  }
+
+  .App__header__left {
+    font-size: 21px;
+    letter-spacing: 12px;
   }
 
   .dark-background {
@@ -50,6 +70,15 @@
   .App__background {
     height: 300px;
     background-image: url(./assets/bg-desktop-light.jpg);
+  }
+
+  .App__header {
+    margin-bottom: 48px;
+  }
+
+  .App__header__left {
+    font-size: 32px;
+    letter-spacing: 16px;
   }
 
   .dark-background {

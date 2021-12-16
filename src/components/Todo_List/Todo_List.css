@@ -1,3 +1,99 @@
 .todo-list {
     position: relative;
 }
+
+.todo-list__new-todo {
+    background-color: var(--lt-clr-1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.todo-list__list {
+    border-radius: 5px;
+    background-color: var(--lt-clr-1);
+}
+
+.todo-list__list__todo {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid red;
+}
+
+.todo-list__new-todo__check-circle,
+.todo-list__list__todo__check-circle {
+    border: 1px solid var(--lt-clr-3);
+    border-radius: 50%;
+}
+
+.todo-list__new-todo__input {
+    border: none;
+    background: transparent;
+}
+
+.todo-list__list__items-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dark-list {
+    background-color: var(--dk-clr-7);
+}
+
+.dark-circle {
+    border: 1px solid var(--dk-clr-5);
+}
+
+.dark-todo {
+    
+}
+
+@media screen and (min-width: 375px) {
+    .todo-list__new-todo, 
+    .todo-list__list__todo {
+        /* height: 50px; */
+        /* height: calc(50px - 12px); */
+        
+        padding: 12px 20px;
+        column-gap: 12px;
+    }
+
+    .todo-list__new-todo {
+        margin-bottom: 16px;
+    }
+
+    .todo-list__list__items-left {
+        padding: 12px 20px;
+    }
+
+    .todo-list__new-todo__check-circle,
+    .todo-list__list__todo__check-circle {
+        height: 22px;
+        width: 22px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .todo-list__new-todo, 
+    .todo-list__list__todo {
+        /* height: 65px; */
+        
+        padding: 20px 24px;
+        column-gap: 24px;
+    }
+
+    .todo-list__new-todo {
+        margin-bottom: 24px;
+    }
+
+    .todo-list__list__items-left {
+        padding: 20px 24px;
+    }
+
+    .todo-list__new-todo__check-circle,
+    .todo-list__list__todo__check-circle {
+        height: 24px;
+        width: 24px;
+    }
+}

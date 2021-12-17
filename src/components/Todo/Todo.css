@@ -27,6 +27,24 @@
     color: var(--dk-clr-3);
 }
 
+.completed--check-circle {
+    background: var(--check-bkgrnd);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.completed--text--dark {
+    text-decoration: line-through;
+    color: var(--dk-clr-5);
+}
+
+.completed--text--light {
+    text-decoration: line-through;
+    color: var(--lt-clr-4);
+}
+
 
 @media screen and (min-width: 375px) {
     .todo-list__list__todo__left {

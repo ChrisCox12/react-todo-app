@@ -13,12 +13,17 @@ function TODO_LIST({ toggleTheme }) {
             text: 'Jog around the park 3x',
             isCompleted: false,
             id: 1
+        },
+        {
+            text: '10 minutes meditation',
+            isCompleted: true,
+            id: 2
         }
     ]);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const todo_input = document.querySelector('.todo-list__new-todo');
+        const new_todo = document.querySelector('.todo-list__new-todo');
         const check_circle = document.querySelector('.todo-list__new-todo__check-circle');
         const list = document.querySelector('.todo-list__list');
         const items_left = document.querySelector('.todo-list__list__items-left');
@@ -26,17 +31,19 @@ function TODO_LIST({ toggleTheme }) {
         /* console.log(todos_) */
         /* console.log(todos); */
         if(toggleTheme) {
-            todo_input.classList.add('dark-list');
+            new_todo.classList.add('dark-list');
             check_circle.classList.add('dark-circle');
             list.classList.add('dark-list');
             items_left.classList.add('dark-items-left');
+
             todos_.forEach(todo_ => todo_.classList.add('dark-todo'));
         } 
         else {
-            todo_input.classList.remove('dark-list');
+            new_todo.classList.remove('dark-list');
             check_circle.classList.remove('dark-circle');
             list.classList.remove('dark-list');
             items_left.classList.remove('.dark-items-left');
+            
             todos_.forEach(todo_ => todo_.classList.remove('dark-todo'));
         }
     }, [toggleTheme]);
@@ -47,22 +54,44 @@ function TODO_LIST({ toggleTheme }) {
         );
     } */
 
-    function handleDeleteTodo(i) {
+    function handleAddTodo(event) {
+        if(event.keyCode === 13) {
+            event.preventDefault();
+
+            const input = document.getElementById('todo-input').value;
+            /* console.log(input) */
+            let new_todo = {
+                text: input,
+                isCompleted: false,
+                id: todos.length
+            };
+
+            console.log(new_todo);
+
+            let new_todos = [...todos, new_todo];
+
+            console.log(new_todos);
+
+            setTodos(new_todos);
+        }
+    }
+
+    function handleDeleteTodo(id) {
         console.log('deleted')
-        console.log(i)
+        console.log(id)
 
-        const new_todos = todos.filter(todo => todo.id !== i);
+        const new_todos = todos.filter(todo => todo.id !== id);
 
-        console.log(new_todos)
+        console.log(new_todos);
 
-        setTodos(new_todos)
+        setTodos(new_todos);
     }
 
     return (
         <div className='todo-list'>
             <div className='todo-list__new-todo'>
                 <div className='todo-list__new-todo__check-circle'></div>
-                <input className='todo-list__new-todo__input' type='text' placeholder='Create a new todo...'></input>
+                <input className='todo-list__new-todo__input' type='text' placeholder='Create a new todo...' id='todo-input' onKeyUp={handleAddTodo}></input>
             </div>
             
             <ul className='todo-list__list'>

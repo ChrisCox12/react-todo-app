@@ -30,6 +30,7 @@
 .todo-list__new-todo__input {
     border: none;
     background: transparent;
+    width: 100%;
 }
 
 .todo-list__list__items-left {

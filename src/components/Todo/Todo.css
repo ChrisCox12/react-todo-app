@@ -10,6 +10,10 @@
     
 }
 
+.todo-list__list__todo__left__check-circle:hover {
+    cursor: pointer;
+}
+
 .todo-list__list__todo__right button {
     border: none;
     background: transparent;

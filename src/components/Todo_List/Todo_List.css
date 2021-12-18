@@ -39,6 +39,10 @@
     justify-content: space-between;
 }
 
+.todo-list__list__items-left:last-child:hover {
+    cursor: pointer;
+}
+
 .dark-list {
     background-color: var(--dk-clr-7);
 }

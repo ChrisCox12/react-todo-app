@@ -3,11 +3,13 @@ import './Todo.css';
 import cross from '../../assets/icon-cross.svg';
 import check from '../../assets/icon-check.svg';
 
-function TODO({ todo, handleDeleteTodo, toggleTheme }) {
+function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
     const [isCompleted, setIsCompleted] = useState(false);
     const [task, setTask] = useState("");
     
     useEffect (() => {
+        setIsCompleted(todo.isCompleted);
+
         const element = document.getElementById(todo.id);
         /* console.log(element) */
         
@@ -18,7 +20,7 @@ function TODO({ todo, handleDeleteTodo, toggleTheme }) {
             todo_circle.classList.add('dark-circle');
             todo_text.classList.add('dark-text');
 
-            if(todo.isCompleted) {
+            if(isCompleted) {
                 if(todo_text.classList.contains('completed--text--light')) {
                     todo_text.classList.remove('completed--text--light');
                 }
@@ -32,7 +34,7 @@ function TODO({ todo, handleDeleteTodo, toggleTheme }) {
             todo_circle.classList.remove('dark-circle');
             todo_text.classList.remove('dark-text');
 
-            if(todo.isCompleted) {
+            if(isCompleted) {
                 if(todo_text.classList.contains('completed--text--dark')) {
                     todo_text.classList.remove('completed--text--dark');
                 }
@@ -43,17 +45,32 @@ function TODO({ todo, handleDeleteTodo, toggleTheme }) {
             }
         }
 
-        setIsCompleted(todo.isCompleted);
-    }, [todo, toggleTheme]);
+        /* setIsCompleted(todo.isCompleted); */
+    }, [todo, toggleTheme, isCompleted]);
+
+
+    /* function handleComplete_Todo() {
+        console.log('completed');
+
+        setIsCompleted(!todo.isCompleted);
+    } */
+
+    function handleComplete() {
+        
+        setIsCompleted(!isCompleted);
+        
+        handleCompleteTodo(todo.id);
+
+    }
 
     return (
         <> 
             <div className="todo-list__list__todo__left" id={todo.id}>
-                {todo.isCompleted ? 
-                    <div className='todo-list__list__todo__left__check-circle completed--check-circle'>
+                {isCompleted ? 
+                    <div className='todo-list__list__todo__left__check-circle completed--check-circle' onClick={handleComplete}>
                         <img src={check} alt='Completed'/>
                     </div>
-                    : <div className='todo-list__list__todo__left__check-circle'></div>
+                    : <div className='todo-list__list__todo__left__check-circle' onClick={handleComplete}></div>
                 }
                 <div className='todo-list__list__todo__left__todo-text'>{todo.text}</div>
                 {/* <div>{isCompleted ? 'true' : 'false'}</div> */}

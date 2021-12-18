@@ -55,12 +55,14 @@ function TODO_LIST({ toggleTheme }) {
     } */
 
     function handleAddTodo(event) {
+        //  keyCode 13 corresponds to the 'Enter' button on the keyboard, i.e.,
+        //  if user presses 'Enter', then do this
         if(event.keyCode === 13) {
-            event.preventDefault();
+            /* event.preventDefault(); */
 
             const input = document.getElementById('todo-input').value;
             /* console.log(input) */
-            let new_todo = {
+            const new_todo = {
                 text: input,
                 isCompleted: false,
                 id: todos.length
@@ -68,7 +70,7 @@ function TODO_LIST({ toggleTheme }) {
 
             console.log(new_todo);
 
-            let new_todos = [...todos, new_todo];
+            const new_todos = [...todos, new_todo];
 
             console.log(new_todos);
 
@@ -77,8 +79,8 @@ function TODO_LIST({ toggleTheme }) {
     }
 
     function handleDeleteTodo(id) {
-        console.log('deleted')
-        console.log(id)
+        console.log('deleted');
+        console.log(id);
 
         const new_todos = todos.filter(todo => todo.id !== id);
 
@@ -87,11 +89,36 @@ function TODO_LIST({ toggleTheme }) {
         setTodos(new_todos);
     }
 
+    function handleCompleteTodo(id) {
+        const todoToUpdate = todos.find(todo => todo.id === id);
+
+        console.log(todoToUpdate);
+        
+        todoToUpdate.isCompleted = !todoToUpdate.isCompleted;
+        
+        console.log(todoToUpdate);
+    }
+
+    function clearCompletedTodos() {
+        const new_todos = todos.filter(todo => todo.isCompleted === false);
+        
+        console.log(new_todos);
+
+        setTodos(new_todos);
+    }
+
+
     return (
         <div className='todo-list'>
             <div className='todo-list__new-todo'>
                 <div className='todo-list__new-todo__check-circle'></div>
-                <input className='todo-list__new-todo__input' type='text' placeholder='Create a new todo...' id='todo-input' onKeyUp={handleAddTodo}></input>
+                <input 
+                    className='todo-list__new-todo__input' 
+                    type='text' 
+                    placeholder='Create a new todo...' 
+                    id='todo-input' 
+                    onKeyUp={handleAddTodo}
+                ></input>
             </div>
             
             <ul className='todo-list__list'>
@@ -106,16 +133,22 @@ function TODO_LIST({ toggleTheme }) {
                         ); */
                         return (
                             <li key={index} className='todo-list__list__todo'>
-                                <TODO todo={todo} handleDeleteTodo={handleDeleteTodo} toggleTheme={toggleTheme} />
+                                <TODO 
+                                    todo={todo} 
+                                    handleDeleteTodo={handleDeleteTodo} 
+                                    toggleTheme={toggleTheme} 
+                                    handleCompleteTodo={handleCompleteTodo} 
+                                />
                             </li>
                         );
                     })
                 }
                 <li key={(todos.length + 1)} className='todo-list__list__items-left'>
                     <div>{todos.length} items left</div>
-                    <div>Clear Completed</div>
+                    <div onClick={clearCompletedTodos}>Clear Completed</div>
                 </li>
             </ul>
+            <button onClick={() => console.log(todos)}>click me</button>
         </div>
     );
 }

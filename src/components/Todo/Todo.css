@@ -14,6 +14,10 @@
     cursor: pointer;
 }
 
+.todo-list__list__todo__left__todo-text {
+    color: var(--lt-clr-5);
+}
+
 .todo-list__list__todo__right button {
     border: none;
     background: transparent;

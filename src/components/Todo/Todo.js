@@ -5,13 +5,11 @@ import check from '../../assets/icon-check.svg';
 
 function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
     const [isCompleted, setIsCompleted] = useState(false);
-    const [task, setTask] = useState("");
     
     useEffect (() => {
         setIsCompleted(todo.isCompleted);
 
         const element = document.getElementById(todo.id);
-        /* console.log(element) */
         
         const todo_text = element.querySelector('.todo-list__list__todo__left__todo-text');
         const todo_circle = element.querySelector('.todo-list__list__todo__left__check-circle');
@@ -45,22 +43,12 @@ function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
             }
         }
 
-        /* setIsCompleted(todo.isCompleted); */
     }, [todo, toggleTheme, isCompleted]);
 
-
-    /* function handleComplete_Todo() {
-        console.log('completed');
-
-        setIsCompleted(!todo.isCompleted);
-    } */
-
     function handleComplete() {
-        
         setIsCompleted(!isCompleted);
         
         handleCompleteTodo(todo.id);
-
     }
 
     return (
@@ -73,7 +61,6 @@ function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
                     : <div className='todo-list__list__todo__left__check-circle' onClick={handleComplete}></div>
                 }
                 <div className='todo-list__list__todo__left__todo-text'>{todo.text}</div>
-                {/* <div>{isCompleted ? 'true' : 'false'}</div> */}
             </div>
             <div className="todo-list__list__todo__right">
                 <button onClick={() => handleDeleteTodo(todo.id)}>

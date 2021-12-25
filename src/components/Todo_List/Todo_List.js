@@ -130,8 +130,12 @@ function TODO_LIST({ toggleTheme }) {
         document.getElementById(selector_string2).classList.remove('selected');
     }
 
-    function getItemsLeft() {
-        return '11';
+    function dragStartHandler(e) {
+        console.log(e.target)
+    }
+
+    function dragOverHandler(e) {
+        console.log('draging over')
     }
 
     return (
@@ -148,10 +152,10 @@ function TODO_LIST({ toggleTheme }) {
             </div>
             
             <ul className='todo-list__list'>
-                {showAll ?
+                {showAll &&
                     todos.map((todo, index) => {
                         return (
-                            <li key={index} className='todo-list__list__todo'>
+                            <li key={index} className='todo-list__list__todo' draggable='true' onDragStart={dragStartHandler} onDragOver={dragOverHandler}>
                                 <TODO 
                                     todo={todo} 
                                     handleDeleteTodo={handleDeleteTodo} 
@@ -161,9 +165,8 @@ function TODO_LIST({ toggleTheme }) {
                             </li>
                         );
                     })
-                    : null
                 }
-                {showActive ? 
+                {showActive &&
                     todos.map((todo, index) => {
                         if(!todo.isCompleted) {
                             return (
@@ -180,9 +183,8 @@ function TODO_LIST({ toggleTheme }) {
 
                         return null;
                     }) 
-                    : null
                 }
-                {showCompleted ? 
+                {showCompleted && 
                     todos.map((todo, index) => {
                         if(todo.isCompleted) {
                             return (
@@ -198,11 +200,10 @@ function TODO_LIST({ toggleTheme }) {
                         }
 
                         return null;
-                    })
-                    : null
+                    })    
                 }
                 <li key={(todos.length + 1)} className='todo-list__list__items-left'>
-                    <div> items left</div>
+                    <div>{todos.length} items left</div>
                     <div onClick={clearCompletedTodos}>Clear Completed</div>
                 </li>
             </ul>

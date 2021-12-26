@@ -75,8 +75,17 @@
     border-bottom: 1px solid var(--dk-clr-6);
 }
 
+.dark-selectors {
+    background-color: var(--dk-clr-7);
+    color: var(--dk-clr-5);
+}
+
 .selected {
     color: var(--blue);
+}
+
+.over {
+    background-color: red;
 }
 
 @media screen and (min-width: 375px) {

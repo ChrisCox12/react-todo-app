@@ -9,8 +9,10 @@ function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
     useEffect (() => {
         setIsCompleted(todo.isCompleted);
 
+        //  since every todo element will have the same amount of children with the same class names,
+        //  instead of searching through entire DOM,
+        //  only search through the element that has the ID of the todo
         const element = document.getElementById(todo.id);
-        
         const todo_text = element.querySelector('.todo-list__list__todo__left__todo-text');
         const todo_circle = element.querySelector('.todo-list__list__todo__left__check-circle');
 
@@ -47,13 +49,15 @@ function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
 
     function handleComplete() {
         setIsCompleted(!isCompleted);
-        
+
+        //  calls the function passed in as a prop, passes in the id of the todo
         handleCompleteTodo(todo.id);
     }
 
     return (
         <> 
             <div className="todo-list__list__todo__left" id={todo.id}>
+                {/* renders a certain div based on the state of isCompleted */}
                 {isCompleted ? 
                     <div className='todo-list__list__todo__left__check-circle completed--check-circle' onClick={handleComplete}>
                         <img src={check} alt='Completed'/>
@@ -63,6 +67,7 @@ function TODO({ todo, handleDeleteTodo, toggleTheme, handleCompleteTodo }) {
                 <div className='todo-list__list__todo__left__todo-text'>{todo.text}</div>
             </div>
             <div className="todo-list__list__todo__right">
+                {/* calls the function passed in as a prop, passes in the id of the todo */}
                 <button onClick={() => handleDeleteTodo(todo.id)}>
                     <img src={cross} alt='Delete Todo' />
                 </button>

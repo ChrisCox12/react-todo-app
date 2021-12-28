@@ -4,11 +4,11 @@ import './Todo_List.css';
 
 function TODO_LIST({ toggleTheme }) {
     const [todos, setTodos] = useState([]);
-    const [showActive, setShowActive] = useState(false);
     const [showAll, setShowAll] = useState(true);
+    const [showActive, setShowActive] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false);
-    const [startIndex, setStartIndex] = useState(-1);
-    const [endIndex, setEndIndex] = useState(-1);
+    const [startIndex, setStartIndex] = useState(-1);   //  for the element that's being dragged
+    const [endIndex, setEndIndex] = useState(-1);   //  for the element to be swapped with
 
 
     //  EFFECT HOOKS
@@ -21,6 +21,7 @@ function TODO_LIST({ toggleTheme }) {
         }
     }, []);
 
+    //  Handles theme switching
     useEffect(() => {
         const new_todo = document.querySelector('.todo-list__new-todo');
         const check_circle = document.querySelector('.todo-list__new-todo__check-circle');
@@ -64,19 +65,23 @@ function TODO_LIST({ toggleTheme }) {
                 id: generateRandomID()
             };
 
+            //  creates new_todos array using everything in todos 
+            //  and adds new_todo to the end
             const new_todos = [...todos, new_todo];
 
+            //  updates state variable, todos
             setTodos(new_todos);
-
+            //  stores new_todos in localstorage
             storeTodos(new_todos);
         }
     }
 
     function handleDeleteTodo(id) {
+        //  filters out the todo to be deleted from todos;
+        //  the one to be deleted has to match id
         const new_todos = todos.filter(todo => todo.id !== id);
 
         setTodos(new_todos);
-
         storeTodos(new_todos);
     }
     
@@ -89,90 +94,80 @@ function TODO_LIST({ toggleTheme }) {
     }
 
     function clearCompletedTodos() {
+        //  filters out completed todos from todos
         const new_todos = todos.filter(todo => todo.isCompleted === false);
 
         setTodos(new_todos);
-
         storeTodos(new_todos);
     }
 
 
     //  DRAG HANDLERS
+    //  fires the moment an element is being dragged
     function dragStartHandler(e) {
-        /* console.log(e.target)
-        console.log('drag start') */
-        e.target.classList.add('dragging')
+        e.target.classList.add('dragging');
         
-        let d = document.querySelectorAll('.todo-list__list__todo')
-        /* console.log(d) */
-        /* const c = [...d, e.target] */
-        const c = [...d];
-        /* console.log(c) */
-        const start = c.indexOf(e.target)
-        /* console.log(start)
-        d = [...document.querySelectorAll('.todo-list__list__todo:not(.dragging)')]
-        console.log('d: ', d) */
+        let d = document.querySelectorAll('.todo-list__list__todo');    //  all todos; collection of html elements
+        const c = [...d];   //  c is an array, d is a collection of html elements
+        const start = c.indexOf(e.target);  //  gets index of the element that is being dragged
         
         setStartIndex(start);
     }
 
+    // fires when an element is being hovered by a draggable element
     function dragOverHandler(e) {
-        /* console.log('draging over')
-        console.log(e.target); */
+        //  allows a draggable element to be dropped in other elements
         e.preventDefault();
         
-        /* let cont = [...document.querySelectorAll('.todo-list__list__todo:not(.dragging)')]*/
-        
-        /* let draggable = document.querySelector('.dragging') */
-        
+        //  only pay attention to <li> elements
         if(e.target.tagName === 'LI') {
-            /* console.log('drag over target: ', e.target) */
-            let pie = e.target;
-            let cont = [...document.querySelectorAll('.todo-list__list__todo')];
+            let pie = e.target; //  the element being hovered over
+            let cont = [...document.querySelectorAll('.todo-list__list__todo')];    //  array of all todos
 
             setEndIndex(cont.indexOf(pie));
         }
     }
 
+    //  fires the moment to the element being dragged is no longer being dragged
     function dragEndHandler(e) {
-        e.target.classList.remove('dragging')
+        e.target.classList.remove('dragging');
     }
 
+    //  fires the moment the element being dragged is dropped into another element
     function dropHandler(e) {
-        /* console.log('drop')
-
-        console.log(document.querySelector('.dragging'))
-        console.log(document.querySelector('.over'))
-        console.log(todos[startIndex])
-        console.log(todos[endIndex]) */
-        
+        //  makes a copy of todos array; 
+        //  without spread operator, temp_todos would reference todos directly
         const temp_todos = [...todos];
+
+        //  swaps the dragged element with the element it was dropped on
         const temp = temp_todos[startIndex];
         temp_todos[startIndex] = temp_todos[endIndex];
         temp_todos[endIndex] = temp;
-        /* console.log(temp_todos) */
         
         setTodos(temp_todos);
-
         storeTodos(temp_todos);
 
         e.target.classList.remove('over');
     }
 
+    //  fires the moment an element is being hovered over with an element being dragged
     function dragEnterHandler(e) {
         if(e.target.tagName === 'LI') e.target.classList.add('over')
     }
 
+    // fires the moment an element that was being hovered over is no longer being hovered over
     function dragLeaveHandler(e) {
         if(e.target.tagName === 'LI') e.target.classList.remove('over')
     }
 
     
     //  SETTERS
+    //  stores todos in localstorage
     function storeTodos(todosToStore) {
         localStorage.setItem('todos', JSON.stringify(todosToStore));
     }
 
+    //  for showing all todos
     function showAllTodos() {
         clearSelectors('active', 'completed');
 
@@ -183,6 +178,7 @@ function TODO_LIST({ toggleTheme }) {
         setShowCompleted(false);
     }
 
+    //  for showing only active todos
     function showActiveTodos() {
         clearSelectors('all', 'completed');
 
@@ -193,6 +189,7 @@ function TODO_LIST({ toggleTheme }) {
         setShowCompleted(false);
     }
 
+    //  for showing only completed todos
     function showCompletedTodos() {
         clearSelectors('all', 'active');
 
@@ -205,12 +202,14 @@ function TODO_LIST({ toggleTheme }) {
 
 
     //  GETTERS
+    //  gets todos stored in localstorage
     function getTodos() {
         return localStorage.getItem('todos');
     }
 
     
     //  OTHER FUNCTION(S)
+    //  removes 'selected' class from the two other selectors
     function clearSelectors(str1, str2) {
         const selector_string1 = 'selector--' + str1;
         const selector_string2 = 'selector--' + str2;
@@ -219,10 +218,13 @@ function TODO_LIST({ toggleTheme }) {
         document.getElementById(selector_string2).classList.remove('selected');
     }
 
+    //  genereates a random ID
     function generateRandomID() {
         let id = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
+        //  the ID is 12 characters in length and is comprised of characters from the characters variable,
+        //  which is 62 characters long
         for(let i = 0; i < 12; i++) {
             id = id.concat( characters.charAt( Math.floor( Math.random() * 62 ) ) );
         }
@@ -245,6 +247,7 @@ function TODO_LIST({ toggleTheme }) {
             </div>
             
             <ul className='todo-list__list'>
+                {/* shows all todos if showAll is true  */}
                 {showAll &&
                     todos.map((todo, index) => {
                         return (
@@ -269,6 +272,7 @@ function TODO_LIST({ toggleTheme }) {
                         );
                     })
                 }
+                {/* shows only the uncompleted todos if showActive is true  */}
                 {showActive &&
                     todos.map((todo, index) => {
                         if(!todo.isCompleted) {
@@ -287,6 +291,7 @@ function TODO_LIST({ toggleTheme }) {
                         return null;
                     }) 
                 }
+                {/* shows only the completed todos if showCompleted is true */}
                 {showCompleted && 
                     todos.map((todo, index) => {
                         if(todo.isCompleted) {
